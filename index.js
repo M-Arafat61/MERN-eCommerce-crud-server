@@ -26,6 +26,47 @@ async function run() {
     await client.connect();
 
     const apparelCollection = client.db("fashionDB").collection("apparel");
+
+    const brandCollection = client.db("fashionDB").collection("Brands");
+
+    // getting products from db
+    app.get("/nike-products", async (req, res) => {
+      const cursor = apparelCollection.find({ brand: "Nike" });
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get("/adidas-products", async (req, res) => {
+      const cursor = apparelCollection.find({ brand: "Adidas" });
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get("/gucci-products", async (req, res) => {
+      const cursor = apparelCollection.find({ brand: "Gucci" });
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get("/hermes-products", async (req, res) => {
+      const cursor = apparelCollection.find({ brand: "Hermes" });
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get("/tiffany-products", async (req, res) => {
+      const cursor = apparelCollection.find({ brand: "Tiffany & Co." });
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get("/zara-products", async (req, res) => {
+      const cursor = apparelCollection.find({ brand: "Zara" });
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    //insert products data to db
+    app.post("/addProducts", async (req, res) => {
+      const newProducts = req.body;
+      const result = await apparelCollection.insertOne(newProducts);
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
