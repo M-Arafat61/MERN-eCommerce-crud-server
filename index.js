@@ -81,7 +81,6 @@ async function run() {
       res.send(result);
     });
 
-    //insert products data to db
     app.post("/addProducts", async (req, res) => {
       const newProducts = req.body;
       const result = await apparelCollection.insertOne(newProducts);
@@ -125,11 +124,9 @@ async function run() {
       const result = await cartCollection.deleteOne(query);
       res.send(result);
     });
-    // Send a ping to confirm a successful connection
+
     await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    console.log("Pinged your deployment. Connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
